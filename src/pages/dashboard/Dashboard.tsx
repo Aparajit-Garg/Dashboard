@@ -1,10 +1,25 @@
+import { Box, Grid, Paper } from "@mui/material";
+import scss from '@/styles/Dashboard.module.css'
 
 const Dashboard = () => {
 
     return (
-        <div>
-            Dashboard
-        </div>
+        <Box>
+            <Grid container gap={2} className={scss.topCardsContainer}>
+                <Grid>
+                    <Paper className={scss.dataCard}> xs=4 </Paper>
+                </Grid>
+                <Grid>
+                    <Paper className={scss.dataCard}> xs=4 </Paper>
+                </Grid>
+                <Grid>
+                    <Paper className={scss.dataCard}> xs=4 </Paper>
+                </Grid>
+            </Grid>
+            <Grid xs={12} marginY={2}>
+                <Paper className={scss.dataCard}> xs=12 </Paper>
+            </Grid>
+        </Box>
     )
 }
 
