@@ -1,4 +1,4 @@
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 const Login = () => {
@@ -6,15 +6,14 @@ const Login = () => {
 	if (session) {
 		return (
 			<>
-				Welcome {session?.user?.name} <br />
-                <button onClick={() => signOut()}>Sign out</button>
+                <Button variant="contained" color="error" onClick={() => signOut()}>Sign out</Button>
 			</>
 		);
 	}
 	return (
 		<>
-			Not signed in <br />
-			<button onClick={() => signIn()}>Sign in</button>
+			Please login <br />
+			<Button variant={'contained'} color='success' onClick={() => signIn()}>Sign in</Button>
 		</>
 	);
 };

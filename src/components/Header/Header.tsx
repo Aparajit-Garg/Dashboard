@@ -7,12 +7,12 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
+import MenuIcon from "@mui/icons-material/Menu";
+import AdbIcon from "@mui/icons-material/Adb";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -130,11 +130,17 @@ const Header = () => {
 							</Button>
 						))}
 					</Box>
-
+					<Box sx={{ marginRight: '10px' }}>
+						{" "}
+						<Typography> {session?.user?.name} </Typography>{" "}
+					</Box>
 					<Box sx={{ flexGrow: 0 }}>
-						<Tooltip title="Open settings">
+						<Tooltip title="Open profile settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt={session?.user?.name as string} src={session?.user?.image as string} />
+								<Avatar
+									alt={session?.user?.name as string}
+									src={session?.user?.image as string}
+								/>
 							</IconButton>
 						</Tooltip>
 						<Menu
@@ -153,17 +159,17 @@ const Header = () => {
 							open={Boolean(anchorElUser)}
 							onClose={handleCloseUserMenu}
 						>
-							
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">{session ? 'Logout' : 'Login'}</Typography>
-                            </MenuItem>
-
+							<MenuItem onClick={() => (session ? signOut() : signIn())}>
+								<Typography textAlign="center">
+									{session ? "Logout" : "Login"}
+								</Typography>
+							</MenuItem>
 						</Menu>
 					</Box>
 				</Toolbar>
 			</Container>
 		</AppBar>
 	);
-}
+};
 
 export default Header;
