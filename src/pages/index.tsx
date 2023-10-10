@@ -1,15 +1,16 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import Dashboard from "./dashboard";
 import Header from "@/components/Header/Header";
 import SideMenu from "@/components/SideMenu/SideMenu";
 import Login from "@/components/Login/Login";
 import { useSession } from "next-auth/react";
+import scss from "@/styles/Home.module.scss"
+import { FC } from "react";
 
 // const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+const Home: FC = () => {
     const {data: session} = useSession()
 	return (
 		<>
@@ -19,8 +20,7 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main className={`${styles.main}`}>
-                <Header />
+			<main className={scss.main}>
                 {
                     session && (
                     <>
@@ -34,3 +34,5 @@ export default function Home() {
 		</>
 	);
 }
+
+export default Home; 
