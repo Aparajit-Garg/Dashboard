@@ -8,22 +8,24 @@ import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import MenuIcon from "@mui/icons-material/Menu";
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { signIn, signOut, useSession } from "next-auth/react";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import { useMediaQuery } from "@mui/material";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export type HeaderProps = {
-    ColorModeContext: React.Context<{ toggleColorMode: () => void }>
-}
+	ColorModeContext: React.Context<{ toggleColorMode: () => void }>;
+};
 
 const Header = (props: HeaderProps) => {
-    const { ColorModeContext } = props;
+	const { ColorModeContext } = props;
+    const tabletCheck = useMediaQuery('(min-width: 768px)')
 	const { data: session } = useSession();
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
@@ -134,14 +136,17 @@ const Header = (props: HeaderProps) => {
 							</Button>
 						))}
 					</Box>
-					<Box sx={{ marginRight: '10px' }}>
-						{" "}
-						<Typography> {session?.user?.name} </Typography>{" "}
+					{
+                        tabletCheck &&
+						<Box sx={{ marginRight: "10px" }}>
+							{" "}
+							<Typography> {session?.user?.name} </Typography>{" "}
+						</Box>
+					}
+					<Box>
+						<ThemeToggle ColorModeContext={ColorModeContext} />
 					</Box>
-                    <Box>
-                        <ThemeToggle ColorModeContext={ColorModeContext} />
-                    </Box>
-                    <Box sx={{ flexGrow: 0 }}>
+					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open profile settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 								<Avatar
